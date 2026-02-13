@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JyFramework 홈</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header>
+        <div>JyFramework</div>
+        <nav>
+            <a href="/">홈</a>
+            <a href="/login">로그인</a>
+            <a href="/admin/dashboard">관리자 페이지</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>👋 환영합니다!</h1>
+        <p>나만의 프레임워크로 만든 블로그입니다.</p>
+        <hr>
+
+        <div class="post-list">
+            <div th:if="${posts.isEmpty()}" style="text-align: center; color: gray;">
+                <p>아직 등록된 게시글이 없습니다. 😅</p>
+                <p>관리자 페이지에서 글을 작성해보세요!</p>
+            </div>
+
+            <div class="card" th:each="post : ${posts}">
+                <h2 th:text="${post.title}">게시글 제목</h2>
+                <div class="meta">
+                    작성자: <span th:text="${post.author}">홍길동</span> | 
+                    날짜: <span th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}">2026-01-01</span>
+                </div>
+                <p th:text="${post.content}">내용이 들어갑니다...</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
