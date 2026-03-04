@@ -1,5 +1,7 @@
 package com.my.framework.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -32,6 +34,10 @@ public class MainController {
 			String userName = memberService.getMemberName(userId);
 			model.addAttribute("userName", userName);
 			
+			// [추가] 게시글 빈 리스트 담기 (에러 방지용)
+			// 나중에 PostMapper를 만들면 여기에 진짜 DB 데이터를 담을 거야!
+            model.addAttribute("posts", new ArrayList<>());
+            
 			return "index";
 		} else {
 			return "redirect:/login"; // 로그인 안 했으면 로그인 페이지로 튕겨내기

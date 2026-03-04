@@ -7,4 +7,5 @@ public class MemberDto {
 	private String memberId;
 	private String memberName;
 	private String password;
+	private String role;
 }
