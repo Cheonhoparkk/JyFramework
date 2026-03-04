@@ -10,7 +10,9 @@ import com.my.framework.dto.MemberDto;
 import com.my.framework.mapper.MemberMapper;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
@@ -19,15 +21,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		System.out.println("============== [로그인 시도] 아이디: " + username + " ==============");
+		log.info("============== [로그인 시도] 아이디: {} ==============", username);
 		// 1. 화면에서 입력받은 아이디(username)로 DB 조회
         MemberDto member = memberMapper.selectMemberById(username);
         
-        System.out.println("============== [DB 조회 결과]: " + member + " ==============");
+        log.info("============== [DB 조회 결과]: {} ==============", member);
         
         // 2. 일치하는 회원이 없으면 에러 던지기
         if (member == null) {
-        	System.out.println("============== 실패: 회원이 DB에 없습니다! ==============");
+        	log.error("============== 실패: 회원이 DB에 없습니다! 입력한 아이디: {} ==============", username);
             throw new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다: " + username);
         }
         
